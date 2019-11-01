@@ -1,0 +1,1000 @@
+    4  curl localhost:2224
+    5  sudo docker ps -a
+    6  sudo docker images
+    7  docker --version
+    8  sudo docker tag webby gcr.io/artful-tractor-220916/658-guda-webby
+    9  cd ~
+   10  sudo wget https://www.alta3.com/static/files/keyfile.json
+   11  docker login -u _json_key -p "$(cat keyfile.json)" https://gcr.io
+   12  sudo docker login -u _json_key -p "$(cat keyfile.json)" https://gcr.io
+   13  sudo docker image ls
+   14  ll
+   15  less keyfile.json 
+   16  sudo docker push gcr.io/artful-tractor-220916/658-guda-webby
+   17  sudo docker ps -a
+   18  sudo docker stop 7faaf70df3e8        
+   19  sudo docker ps -a
+   20  exit
+   21  ll
+   22  pwd
+   23  docker ps
+   24  sudo docker ps
+   25  pwd
+   26  ll
+   27  mkdir kguda
+   28  cd kguda/
+   29  ll
+   30  vi Dockerfile
+   31  sudo usermod -aG docker $USER
+   32  cd ~
+   33  groups student
+   34  mkdir downloads
+   35  cd ~/downloads/
+   36  wget https://dl.google.com/go/go1.11.1.linux-amd64.tar.gz
+   37  cd ~
+   38  mkdir -p ~/go/src/github.com/alta3/hello
+   39  mkdir -p ~/go/bin
+   40  sudo tar -C /usr/local -vxzf ~/downloads/go1.11.1.linux-amd64.tar.gz
+   41  export PATH=$PATH:/usr/local/go/bin
+   42  export GOBIN=~/go/bin
+   43  export PATH=$PATH:~/go/bin
+   44  cd go/src/github.com/alta3/hello
+   45  vim hello.go
+   46  go install
+   47  go build
+   48  hello
+   49  cd ~/go/src/github.com/
+   50  mv ~/.ssh/config ~/.ssh/config.old
+   51  git clone git@github.com:alta3/webby.git
+   52  cd webby/
+   53  go get .
+   54  CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o webserver .
+   55  vim scratch
+   56  sudo docker build -t webby -f scratch .
+   57  sudo docker run -p 2224:8888 -it webby
+   58  kubectl
+   59  docker images -a
+   60  sudo docker images -a
+   61  cd ~
+   62  cd ~/git/kubernetes-the-alta3-way
+   63  vim hosts.yml
+   64  ansible-playbook -i hosts.yml main.yaml
+   65  ll
+   66  ansible-playbook -i hosts.yml main.yaml
+   67  pwd
+   68  ll
+   69  ansible-playbook -i hosts.yml .main.yaml
+   70  ansible-playbook -i hosts.yml ~/git/kubernetes-the-alta3-way/main.yaml
+   71  vi main.yml 
+   72  ansible-playbook
+   73  ansible-playbook -i hosts.yml main.yml 
+   74  fping -A k8s-000-master-01 k8s-000-master-02 k8s-000-master-03 k8s-000-node-01 k8s-000-node-02 k8s-000-node-03
+   75  fping -A k8s-658-master-01 k8s-658-master-02 k8s-658-master-03 k8s-658-node-01 k8s-658-node-02 k8s-658-node-03
+   76  kubectl get nodes
+   77  kubectl describe nodes
+   78  kubectl get namespaces
+   79  kubectl describe namespace default
+   80  kubectl describe namespace kube-node-lease
+   81  pwd
+   82  cd ~
+   83  mkdir lab3
+   84  cd lab3
+   85  vim ~/lab3/test-ns.yaml
+   86  kubectl create -f test-ns.yaml
+   87  kubectl get namespaces
+   88  kubectl describe namespace test
+   89  ll
+   90  cp test-ns.yaml dev-ns.yaml
+   91  cp test-ns.yaml prod-ns.yaml
+   92  vi dev-ns.yaml 
+   93  vi prod-ns.yaml 
+   94  vi dev-ns.yaml 
+   95  kubectl create -f dev-ns.yaml
+   96  kubectl get namespaces
+   97  vi dev-ns.yaml 
+   98  kubectl create -f dev-ns.yaml
+   99  kubectl get namespaces
+  100  vim test-rq.yaml
+  101  kubectl create -f test-rq.yaml --namespace=test
+  102  vim test-rq.yaml
+  103  kubectl create -f test-rq.yaml --namespace=test
+  104  kubectl describe namespace test
+  105  kubectl get namespaces
+  106  ll
+  107  cp test-rq.yaml dev-rq.yaml
+  108  cp test-rq.yaml prod-ra.yaml 
+  109  vi dev-rq.yaml 
+  110  mv prod-ra.yaml prod-rq.yaml
+  111  vi prod-rq.yaml 
+  112  kubectl create -f prod-rq.yaml --namespace=prod
+  113  kubectl create -f prod-rq.yaml --namespace=dev
+  114  kubectl describe namespace prod
+  115  kubectl describe namespace dev
+  116  kubectl create -f prod-rq.yaml --namespace=dev
+  117  kubectl create -f prod-rq.yaml --namespace=prod
+  118  kubectl apply -f prod-rq.yaml --namespace=prod
+  119  kubectl describe namespace dev
+  120  kubectl describe namespace prod
+  121  kubectl apply -f prod-rq.yaml --namespace=dev
+  122  kubectl describe namespace prod
+  123  kubectl describe namespace dev
+  124  ll
+  125  vi dev-rq.yaml 
+  126  kubectl apply -f dev-rq.yaml --namespace=dev
+  127  kubectl describe namespace dev
+  128  kubectl delete -f test-rq.yaml --namespace=test
+  129  kubectl delete -f dev-rq.yaml --namespace=dev
+  130  kubectl describe namespace dev
+  131  kubectl delete -f prod-rq.yaml --namespace=prod
+  132  kubectl describe namespace dev
+  133  kubectl describe namespace test
+  134  kubectl describe namespace prod
+  135  kubectl describe namespace dev
+  136  kubectl delete -f prod-rq.yaml --namespace=dev
+  137  kubectl describe namespace dev
+  138  kubectl config use-context kubernetes-the-alta3-way
+  139  kubectl config view
+  140  cd ..
+  141  ll
+  142  kubectl config use-context kubernetes-the-alta3-way
+  143  cd k8s-certs/
+  144  ll
+  145  cd ~
+  146  kubectl config view
+  147  cd ~
+  148  kubectl config set-context dev-context --namespace=dev
+  149  kubectl config use-context dev-context
+  150  kubectl config view --minify
+  151  kubectl config view
+  152  kubectl config view --minify
+  153  kubectl config set-context dev-context --namespace=dev --user=admin --cluster=kubernetes-the-alta3-way
+  154  kubectl config view
+  155  kubectl config set-context dev-context --namespace=dev --user=admin --cluster=kubernetes-the-alta3-way
+  156  kubectl config view
+  157  kubectl config get-contexts
+  158  kubectl config set-context kubernetes-the-alta3-way --namespace=default
+  159  kubectl config get-contexts
+  160  kubectl config set-context dev-context --namespace=dev --user=admin --cluster=kubernetes-the-alta3-way
+  161  kubectl config get-contexts
+  162  history
+  163  kubectl config get-contexts
+  164  kubectl config set-context test-context --namespace=test --user=admin --cluster=kubernetes-the-alta3-way 
+  165  kubectl config set-context prod-context --namespace=prod --user=admin --cluster=kubernetes-the-alta3-way  
+  166  kubectl config get-contexts
+  167  kubectl get ns
+  168  kubectl config get-contexts
+  169  kubectl config use-context kubernetes-the-alta3-way
+  170  kubectl config get-contexts
+  171  kubectl get services
+  172  kubectl get pods --all-namespaces
+  173  kubectl get pods --all-namespaces -o wide
+  174  kubectl get pods
+  175  kubectl get deployments --all-namespaces
+  176  kubectl get services --all-namespaces
+  177  kubectl get all --all-namespaces
+  178  kubectl get all --all-namespaces | grep calico-kube-controllers
+  179  kubectl get secrets
+  180  history
+  181  ll
+  182  cd k8s-certs/
+  183  ll
+  184  cd ..
+  185  ll
+  186  cd .kube/
+  187  ll
+  188  less config 
+  189  cd ..
+  190  source <(kubectl completion bash)
+  191  kubectl get pod
+  192  ll
+  193  mkdir lab7
+  194  cd lab7
+  195  vim ~/simpleservice.yaml
+  196  vi simpleservice.yaml
+  197  kubectl create -f simpleservice.yaml
+  198  kubectl get pods
+  199  kubectl describe pods
+  200  kubectl get pods
+  201  kubectl describe pods
+  202  kubectl describe pod simpleservice
+  203  kubectl get context
+  204  kubectl delete -f simpleservice.yaml
+  205  kubectl describe pod simpleservice
+  206  vi downgrade-pod.yaml
+  207  kubectl create -f downgrade-pod.yaml
+  208  kubectl describe pods
+  209  kubectl get deployment
+  210  kubectl get po
+  211  kubectl delete -f downgrade-pod.yaml
+  212  kubectl get po
+  213  kubectl get deployment
+  214  vim webby-pod01.yaml
+  215  kubectl create -f webby-pod01.yaml 
+  216  vim webby-pod01.yaml
+  217  kubectl create -f webby-pod01.yaml 
+  218  kubectl get po
+  219  kubectl describe po
+  220  kubectl get po
+  221  ll
+  222  kubectl create -f simpleservice.yaml
+  223  curl http://127.0.0.1:5000/env
+  224  kubectl delete pods,deploy --all
+  225  wd
+  226  cd ..
+  227  mkdir lab8
+  228  cd lab8/
+  229  vi nginx.yaml
+  230  kubectl create -f nginx.yaml
+  231  kubectl get po
+  232  kubectl create -f nginx.yaml
+  233  kubectl delete pod nginx
+  234  kubectl apply -f nginx.yaml
+  235  kubectl get po
+  236  kubectl apply -f nginx.yaml
+  237  kubectl get pods --show-labels
+  238  kubectl get pods
+  239  kubectl get pods -o w
+  240  kubectl get pods -w
+  241  vi nginx.yaml 
+  242  kubectl apply -f nginx.yaml 
+  243  kubectl get pods 
+  244  kubectl get pods --show-labels
+  245  kubectl delete pods 
+  246  kubectl delete pods --all
+  247  kubectl run nginx1 --image=nginx:1.7.9 --port=80
+  248  kubectl get pods --show-labels
+  249  kubectl delete pods --all
+  250  kubectl run nginx2 --image=nginx:1.7.9 --port=80
+  251  kubectl get pods --show-labels
+  252  kubectl delete pods --all
+  253  kubectl get pods --show-labels
+  254  kubectl delete pods --all
+  255  kubectl get pods --show-labels
+  256  kubectl get deployment
+  257  kubectl delete deployment nginx
+  258  kubectl delete deployment nginx1
+  259  kubectl delete deployment nginx2
+  260  kubectl get pods --show-labels
+  261  vi nginx.yaml 
+  262  kubectl apply -f nginx.yaml 
+  263  kubectl get pods --show-labels
+  264  kubectl get pods -o wide
+  265  kubectl get pods nginx2 -o yaml | grep nodeName
+  266  kubectl get pods nginx1 -o yaml | grep nodeName
+  267  vi nginx.yaml 
+  268  cd ..
+  269  mkdir lab10
+  270  cd lab10
+  271  kubectl create -f https://alta3.com/static/projects/k8s/nginx-pod.yaml
+  272  kubectl exec -it nginx -- sh
+  273  kubectl exec -it nginx -c nginx -- sh
+  274  ll
+  275  vi nginx-pod.yaml
+  276  kubectl get pods
+  277  kubectl delete pods --all
+  278  kubectl get pods
+  279  kubectl apply -f nginx-pod.yaml 
+  280  kubectl get pods
+  281  kubectl exec -it nginx -- sh
+  282  kubectl exec -it nginx -c nginx -- sh
+  283  kubectl exec -it nginx -c nginxs -- sh
+  284  kubectl exec -it nginx -c nginx1 -- sh
+  285  less nginx-pod.yaml 
+  286  kubectl exec -it nginx -c nginx1 -- sh
+  287  vi nginx-pod.yaml 
+  288  kubectl exec -it nginx -c nginx1 -- sh
+  289  kubectl apply -f nginx-pod.yaml 
+  290  vi nginx-pod.yaml 
+  291  kubectl apply -f nginx-pod.yaml 
+  292  vi nginx-pod.yaml 
+  293  kubectl apply -f nginx-pod.yaml 
+  294  vi nginx-pod.yaml 
+  295  kubectl apply -f nginx-pod.yaml 
+  296  kubectl exec -it nginx -- sh
+  297  kubectl get pods
+  298  kubectl get pods --all-namespaces --sort-by='.status.containerStatuses[0].restartCount'
+  299  kubectl get pods
+  300  kubectl describe pods
+  301  kubectl delete pod nginx1
+  302  kubectl get pods
+  303  kubectl delete pod nginx
+  304  kubectl get pods --all-namespaces --sort-by='.status.containerStatuses[0].restartCount'
+  305  kubectl delete -f https://alta3.com/static/projects/k8s/nginx-pod.yaml
+  306  kubectl get pods --all-namespaces --sort-by='.status.containerStatuses[0].restartCount'
+  307  cd ../lab8/
+  308  ll
+  309  less nginx.yaml 
+  310  cd ../lab7/
+  311  ll
+  312  less simpleservice.yaml 
+  313  vi simpleservice.yaml 
+  314  kubectl apply -f simpleservice.yaml 
+  315  kubectl get pods
+  316  kubectl exec -it simpleservice -c nginx -- sh
+  317  vi simpleservice.yaml 
+  318  kubectl exec -it simpleservice -c simpleservice-web -- sh
+  319  ls
+  320  kubectl get pods
+  321  vim simpleservice.yaml 
+  322  kubectl exec -it simpleservice -c nginx
+  323  kubectl exec -it simpleservice -c nginx -- bash
+  324  kubectl exec -it simpleservice -- bash
+  325  kubectl exec -it simpleservice -n default -- bash
+  326  kubectl describe pod simpleservice -n default
+  327  kubectl exec -it simpleservice -c nginx -- bash
+  328  kubectl exec -it simpleservice -n default -- bash
+  329  kubectl cp simpleservice:/etc/nginx/nginx.conf . -c nginx
+  330  kubectl cp simpleservice://etc/nginx/nginx.conf . -c nginx
+  331  kubectl cp simpleservice://etc/nginx/nginx.conf .
+  332  kubectl cp simpleservice://etc/nginx/nginx.conf -c nginx .
+  333  kubectl cp simpleservice://etc/nginx/nginx.conf -c nginx ./nginx.conf
+  334  ls
+  335  cat nginx.conf 
+  336  rm nginx.conf 
+  337  kubectl cp simpleservice://etc/nginx/nginx.conf ./nginx.conf2
+  338  kubectl cp simpleservice://etc/nginx/nginx.conf -c nginx ./nginx.conf2
+  339  ls
+  340  cat nginx.conf2 
+  341  history
+  342  kubectl cp simpleservice://etc/nginx/nginx.conf -c nginx ./nginx.conf3
+  343  kubectl cp simpleservice:/etc/nginx/nginx.conf -c nginx ./nginx.conf3
+  344  ll
+  345  kubectl cp simpleservice:/etc/nginx/nginx.conf -c nginx ./nginx.conf
+  346  ll
+  347  vi kk.txt
+  348  kubectl cp ./kk.txt simpleservice:/tmp/ -c nginx
+  349  kubectl exec -it simpleservice -c nginx -- bash
+  350  kubectl desrcibe pods
+  351  kubectl describe pods
+  352  exit
+  353  kubectl exec -it linux-pod-rl -- bash
+  354  ll
+  355  cd lab11/
+  356  ll
+  357  vi linux-pod-rl.yaml 
+  358  kubectl apply -f linux-pod-r
+  359  kubectl apply -f linux-pod-rl.yaml 
+  360  kubectl delete pod linux-pod-rl
+  361* kubectl delete pod linux-pod-rl
+  362  kubectl apply -f linux-pod-rl.yaml 
+  363  kubectl exec -it linux-pod-rl -- bash
+  364  kubectl exec -it linux-pod-rl -- apt-get update
+  365  kubectl exec -it linux-pod-rl -- apt-get install htop
+  366  kubectl exec -it linux-pod-rl -- apt-get install stress
+  367  stress --vm 1 --vm-bytes 300M --vm-hang 1
+  368  kubectl exec -it linux-pod-rl -- bash
+  369  kubectl get pods
+  370  JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status} ** '\
+  371  JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status} ** '
+  372  kubectl get nodes -o json | less
+  373  kubectl get nodes -o jsonpath="$JSONPATH" | grep "Ready=True"
+  374  kubectl get nodes -o json | jq '.items[]'
+  375  kubectl get nodes -o json | jq '.items[] | { name: .metadata.name}'
+  376  kubectl get nodes -o json | jq '.items[] | { status: .status.conditions[]}'
+  377  kubectl get nodes -o json | jq '.items[] | { status: .status.conditions[] | select(.status == "True")}'
+  378  kubectl get nodes -o json | jq '.items[] | { status: .status.conditions[] | select(.status == "True"), name: .metadata.name}'
+  379  cd ../
+  380  mkdir lab12
+  381  cd lab12
+  382  vi sise-lp.yaml
+  383  kubectl apply -f ~/sise-lp.yaml
+  384  kubectl describe pods sise-lp | grep -i health
+  385  kubectl get pods
+  386  kubectl delete pod simpleservice
+  387  kubectl apply -f sise-lp.yaml 
+  388  kubectl describe pods sise-lp | grep -i health
+  389  kubectl get pods
+  390  kubectl port-forward sise-lp 2224:9876
+  391  kubectl port-forward simpleservice 2224:9876
+  392  cd ../lab13
+  393  ll
+  394  vi client.yaml
+  395  kubectl create -f client.yaml 
+  396  vi client02.yaml
+  397  kubectl apply -f client02.yaml 
+  398  kubectl run --namespace=test nginx --replicas=2 --image=nginx
+  399  kubectl get pods
+  400  kubectl get pods --all-namespaces
+  401  kubectl get pods --namespace=test
+  402  kubectl describe deployment nginx --namespace=test
+  403  kubectl expose deployment nginx --namespace=test --port=80
+  404  kubectl exec -n test client -- wget -T 2 -q nginx -O -
+  405  kubectl get pods --all-namespaces
+  406  kubectl exec -n test client02 -- wget -T 2 -q nginx -O -
+  407  vim network-policy.yaml
+  408  kubectl apply -f network-policy.yaml
+  409  kubectl get pods svc network --all-namespaces
+  410  kubectl get pods svc --all-namespaces
+  411  kubectl get pods,service --all-namespaces
+  412  kubectl get pods,service,network --all-namespaces
+  413  kubectl get pods,service --all-namespaces
+  414  kubectl exec -n test client -- wget -T 2 -q nginx -O -
+  415  kubectl exec -n test client02 -- wget -T 2 -q nginx -O -
+  416  kubectl edit netpol netpol-1 -n test
+  417  kubectl exec -n test client -- wget -T 2 -q nginx -O -
+  418  kubectl exec -n test client02 -- wget -T 2 -q nginx -O -
+  419  kubectl edit netpol netpol-1 -n test
+  420  kubectl exec -n test client02 -- wget -T 2 -q nginx -O -
+  421  kubectl exec -n test client -- wget -T 2 -q nginx -O -
+  422  kubectl edit netpol netpol-1 -n test
+  423  kubectl config current-context
+  424  kubectl get namespaces
+  425  ls
+  426  cd ../
+  427  mkdir lab14
+  428  cd lab14
+  429  ll
+  430  vi sise-rs.yaml
+  431  kubectl get pods
+  432  kubectl get pods -n test
+  433  kubectl delete pods --all
+  434  kubectl delete pods --all -n test
+  435  kubectl apply -f sise-rs.yaml 
+  436  kubectl get pods 
+  437  cd ../
+  438  mkdir lab15
+  439  cd lab15
+  440  vi docker-private-registry.yaml
+  441  base64 -w0 ~/k8s-certs/registry-web.pem && echo
+  442  base64 -w0 ~/k8s-certs/registry-web-key.pem && echo
+  443  base64 -w0 ~/k8s-certs/registry-web-key.pem && echo >> tls.key
+  444  vi tls.key 
+  445  base64 -w0 ~/k8s-certs/registry-web-key.pem >> tls.key
+  446  base64 -w0 ~/k8s-certs/registry-web.pem >> tls.crt
+  447  ll
+  448  vi docker-private-registry.yaml 
+  449  vi tls.crt 
+  450  vi tls.key 
+  451  vi docker-private-registry.yaml 
+  452  kubectl apply -f docker-private-registry.yaml -n default
+  453  kubectl rollout status deploy/docker-private-registry-deployment --namespace=default
+  454  POD_NAME=$(kubectl get pods -l app=docker-private-registry -n default |sed -e '1d'|awk '{print $1}')
+  455  kubectl port-forward ${POD_NAME} 30500:5000 -n default
+  456  history
+  457  cd ..
+  458  history >> history.log
+  459  vi history.log 
+  460  mkdir lab16
+  461  cd lab16
+  462  ll
+  463  kubectl apply -f https://alta3.com/static/projects/k8s/zombie.yaml
+  464  kubectl get pods
+  465  kubectl delete pod zombie-6c54bd5869-8nn6f
+  466  kubectl delete pod zombie-5754944d6c-2btcn
+  467  kubectl get pods
+  468  kubectl delete -f https://alta3.com/static/projects/k8s/zombie.yaml
+  469  kubectl get pods
+  470  kubectl apply -f https://alta3.com/static/projects/k8s/zombie.yaml
+  471  kubectl get pods
+  472  kubectl get deployment
+  473  kubectl delete deployment zombie
+  474  kubectl get deployment
+  475  kubectl get pods
+  476  kubectl create -f https://alta3.com/static/projects/k8s/zombie.yaml
+  477  kubectl get pods
+  478  kubectl get deployment
+  479  kubectl get deployment zombie --show-labels
+  480  kubectl delete deploy -l app=nginx
+  481  kubectl get deployment zombie --show-labels
+  482  kubectl get deployment
+  483  vi vim webby-deploy.yaml
+  484  ll
+  485  mv vim webby-deployment.yaml
+  486  vi webby-deployment.yaml 
+  487  kubectl apply -f webby-deployment.yaml 
+  488  kubectl get pods
+  489  kubectl delete -f webby-deployment.yaml 
+  490  kubectl get pods
+  491  kubectl get deployment
+  492  kubectl get pods
+  493  kubectl apply -f webby-deployment.yaml 
+  494  kubectl get deployment
+  495  kubectl get pods
+  496  kubectl delete deployment webservice
+  497  kubectl get pods
+  498  kubectl get deployment
+  499  kubectl get pods
+  500  kubectl apply -f webby-deployment.yaml 
+  501  kubectl get deployment --show-labes
+  502  kubectl get deployment 
+  503  kubectl get pods --show-labels
+  504  kubectl delete deployment -l webby
+  505  kubectl delete deployment -l app=webby
+  506  kubectl get pods --show-labels
+  507  kubectl get deployment 
+  508  cd ../
+  509  mkdir lab17
+  510  cd lab17
+  511  wget https://alta3.com/static/projects/k8s/zombie.yaml
+  512  ll
+  513  cat zombie.yaml 
+  514  kubectl get pods
+  515  kubectl apply -f zombie.yaml 
+  516  kubectl get pods
+  517  kubectl get deployments
+  518  kubectl rollout history deploy zombie
+  519  kubectl get deployments
+  520  kubectl get pods
+  521  kubectl exec -it zombie-754944d6c-qwsm6 -- bash
+  522  kubectl exec -it zombie-754944d6c-qwsm6 - bash
+  523  kubectl get pods
+  524  kubectl exec -it zombie-5754944d6c-qwsm6 - bash
+  525  kubectl exec -it zombie-5754944d6c-qwsm6 -- bash
+  526  vi zombie.yaml 
+  527  kubectl apply -f zombie.yaml 
+  528  kubectl get deployments
+  529  kubectl rollout history deploy zombie
+  530  kubectl get pods
+  531  kubectl rollout history deploy zombie
+  532  kubectl exec -it zombie-<replace-with-zombie-pod-id> -- bash
+  533  kubectl exec -it zombie-7448597cd5-sttpz -- bash
+  534  kubectl rollout history deploy zombie --revision=1
+  535  kubectl get pods
+  536  kubectl rollout history deploy zombie --revision=2
+  537  kubectl rollout status deploy zombie
+  538  kubectl rollout undo deploy/zombie
+  539  kubectl rollout status deploy zombie
+  540  kubectl get pods
+  541  kubectl rollout history deploy zombie --revision=2
+  542  kubectl rollout history deploy zombie --revision=1
+  543  kubectl rollout history deploy zombie
+  544  kubectl get pods
+  545  kubectl exec -it zombie-<replace-with-zombie-pod-id> -- bash
+  546  kubectl exec -it zombie-5754944d6c-zjnb5 -- bash
+  547  kubectl rollout status deploy zombie
+  548  kubectl rollout undo deploy/zombie
+  549  kubectl rollout status deploy zombie
+  550  kubectl get pods
+  551  kubectl rollout history deploy zombie --revision=3
+  552  kubectl rollout history deploy zombie --revision=4
+  553  kubectl rollout undo deploy/zombie
+  554  kubectl apply -f zombie.yaml 
+  555  kubectl rollout history deploy zombie 
+  556  kubectl rollout undo deploy/zombie
+  557  kubectl rollout history deploy zombie 
+  558  kubectl rollout undo deploy/zombie
+  559  cd ../
+  560  mkdir lab18
+  561  cd lab18
+  562  vi sise-deploy.yaml
+  563  kubectl apply -f sise-deploy.yaml 
+  564  kubectl delete deployment zombie
+  565  kubectl describe deployments sise-deploy | grep Replicas
+  566  kubectl get pods | grep sise
+  567  kubectl scale deployment sise-deploy --replicas=3
+  568  kubectl get pods | grep sise
+  569  kubectl apply -f sise-deploy.yaml 
+  570  kubectl get pods | grep sise
+  571  kubectl describe deployments sise-deploy
+  572  kubectl get pods | grep sise
+  573  kubectl scale deployment sise-deploy --replicas=3
+  574  kubectl get deployment sise-deploy --export -o yaml > sise-deploy.yaml
+  575  ll
+  576  less sise-deploy.yaml 
+  577  vi sise-deploy.yaml 
+  578  kubectl apply -f sise-deploy.yaml
+  579  kubectl get rs | grep sise
+  580  kubectl get rs
+  581  kubectl get hpa
+  582  kubectl describe deployment sise-deploy
+  583  kubectl get deployment 
+  584  kubectl autoscale deployment sise-deploy --min=4 --max=6 --cpu-percent=25
+  585  kubectl get hpa
+  586  kubectl get pods -w
+  587  kubectl describe hpa sise-deploy
+  588  ll
+  589  kubectl delete -f sise-deploy.yaml 
+  590  ll
+  591  kubectl describe hpa sise-deploy
+  592  kubectl get hpa
+  593  kubectl delete hpa sise-deploy
+  594  kubectl get hpa
+  595  vi webby-deploy.yaml
+  596  kubectl apply -f webby-deploy.yaml
+  597  kubectl scale deployment webservice --replicas=2
+  598  kubectl apply -f webby-deploy.yaml
+  599  kubectl get hpa
+  600  kubectl autoscale deployment webservice --min=4 --max=6 --cpu-percent=25
+  601  kubectl get hpa
+  602  vi webby-deploy.yaml 
+  603  kubectl apply -f webby-deploy.yaml 
+  604  cd ..
+  605  mkdir lab19
+  606  cd lab19
+  607  kubectl get pods
+  608  kubectl delete deployment webservice
+  609  kubectl get pods
+  610  kubectl apply -f https://alta3.com/static/projects/k8s/nginx-pod.yaml
+  611  kubectl exec -it nginx -- sh
+  612  kubectl get pods --show-labels --all-namespaces
+  613  kubectl get pods -L app
+  614  kubectl label pods nginx app=web_service
+  615  kubectl get pods -L app
+  616  kubectl get pod nginx -o yaml > nginx-pod-update.yaml
+  617  ll
+  618  less nginx-pod-update.yaml 
+  619  kubectl apply -f nginx-pod-update.yaml
+  620  kubectl get pods -L app
+  621  kubectl get pods --show-labels --all-namespaces
+  622  vi nginx-pod-update.yaml 
+  623  kubectl apply -f nginx-pod-update.yaml
+  624  kubectl get pods --show-labels --all-namespaces
+  625  vi nginx-pod-update.yaml 
+  626  kubectl apply -f nginx-pod-update.yaml
+  627  wget https://alta3.com/static/projects/k8s/nginx-pod.yaml
+  628  ll
+  629  vi nginx-pod.yaml 
+  630  kubectl apply -f nginx-pod.yaml 
+  631  kubectl delete pods -aal
+  632  kubectl delete pods -all
+  633  kubectl delete pods --all
+  634  vi nginx-pod.yaml 
+  635  kubectl apply -f nginx-pod.yaml 
+  636  kubectl get pods --show-labels --all-namespaces
+  637  kubectl get pods -L KK
+  638  kubectl delete -f nginx-pod-update.yaml
+  639  kubectl get pods -L KK
+  640  vi nginx-obj.yaml
+  641  kubectl apply -f nginx-obj.yaml
+  642  kubectl apply -f https://alta3.com/static/projects/k8s/nginx-pod.yaml
+  643  kubectl label pods <FULLPODNAME> project=easy
+  644  kubectl label pods │nginx-obj-create-5754944d6c-2bqbq project=easy
+  645  kubectl label pods nginx-obj-create-5754944d6c-2bqbq project=easy
+  646  kubectl get pods -L project
+  647  nginx-obj-create-5754944d6c-gbwr5
+  648  kubectl label pods  segment=easy
+  649  kubectl label pods nginx-obj-create-5754944d6c-gbwr5 segment=easy
+  650  kubectl get pods -L project,segment
+  651  kubectl label pods nginx-obj-create-5754944d6c-gbwr5 kk=easy
+  652  kubectl get pods -L project,segment,kk
+  653  kubectl delete -f nginx-obj.yaml
+  654  kubectl delete -f https://alta3.com/static/projects/k8s/nginx-pod.yaml
+  655  kubectl apply -f https://alta3.com/static/projects/k8s/nginx-pod.yaml
+  656  kubectl label pods nginx project=wrong
+  657  kubectl get pods -L project
+  658  kubectl label pods nginx "project-"
+  659  kubectl get pods -L project
+  660  kubectl delete -f https://alta3.com/static/projects/k8s/nginx-pod.yaml
+  661  kubectl run alpaca-prod --image=gcr.io/kuar-demo/kuard-amd64:1 --replicas=2 --labels="ver=1,app=alpaca,env=prod"
+  662  kubectl run alpaca-test --image=gcr.io/kuar-demo/kuard-amd64:2 --replicas=1 --labels="ver=2,app=alpaca,env=test"
+  663  kubectl run bandicoot-prod --image=gcr.io/kuar-demo/kuard-amd64:2 --replicas=2 --labels="ver=2,app=bandicoot,env=prod"
+  664  kubectl run bandicoot-staging --image=gcr.io/kuar-demo/kuard-amd64:2 --replicas=1 --labels="ver=2,app=bandicoot,env=staging"
+  665  kubectl get deployments --show-labels
+  666  kubectl label deployments alpaca-test "canary=true"
+  667  kubectl get deployments --show-labels
+  668  kubectl label deployments alpaca-prod bandicoot-prod "firewall=true"
+  669  kubectl get deployments --show-labels
+  670  kubectl help get deploy
+  671  kubectl get deploy --show-labels
+  672  kubectl get deploy --selector=ver=2
+  673  kubectl get deploy --selector=env=staging
+  674  kubectl get deploy --selector=env!=staging
+  675  kubectl delete deployments alpaca-prod alpaca-test bandicoot-staging bandicoot-prod
+  676  cd ..
+  677  mkdir lab20
+  678  cd lab20
+  679  vi nginx-annot.yaml
+  680  kubectl apply -f nginx-annot.yaml 
+  681  kubectl describe pod nginx-annot | grep Annotations
+  682  vi nginx-annot.yaml
+  683  kubectl describe pod nginx-annot | grep Annotations
+  684  kubectl apply -f nginx-annot.yaml 
+  685  kubectl describe pod nginx-annot | grep Annotations
+  686  cd ../
+  687  mkdir lab21
+  688  cd lab21
+  689  kubectl create -f https://alta3.com/static/projects/k8s/k8s-countdown.yaml
+  690  wget https://alta3.com/static/projects/k8s/k8s-countdown.yaml
+  691  ll
+  692  watch kubectl get jobs
+  693  kubectl get jobs
+  694  PODS=$(kubectl get pods --selector=job-name=countdown --output=jsonpath={.items..metadata.name})
+  695  kubectl logs $PODS
+  696  kubectl get pods --selector=job-name=countdown --output=jsonpath={.items..metadata.name}
+  697  kubectl get pods --selector=job-name=countdown --output=yaml | grep -A10 ^apiVersion:
+  698  kubectl get pods --selector=job-name=countdown --output=yaml | grep -A20 ^apiVersion:
+  699  kubectl get pods --selector=job-name=countdown --output=yaml | grep -A50 ^apiVersion:
+  700  less k8s-countdown.yaml 
+  701  kubectl delete job countdown
+  702  kubectl apply -f countdown.yaml
+  703  ll
+  704  kubectl apply -f k8s-countdown.yaml
+  705  kubectl get pods
+  706  kubectl logs countdown-zrhnc
+  707  vi countdown.yaml
+  708  kubectl apply -f countdown.yaml
+  709  kubectl delete cj countdown
+  710  kubectl delete job countdown
+  711  kubectl apply -f countdown.yaml
+  712  kubectl logs countdown
+  713  kubectl logs countdown-85nzl
+  714  kubectl delete cj countdown
+  715  kubectl get deployment
+  716  kubectl get deployments
+  717  kubectl get deployment -n test
+  718  kubectl delete deployment -n test
+  719  kubectl delete deployment -n test --all
+  720  kubectl delete deployment -n test
+  721  kubectl get deployment -n test
+  722  kubectl get pods --all
+  723  kubectl get pods --all-namespaces
+  724  kubectl get rs
+  725  kubectl delete rs simpleservice
+  726  kubectl get rs
+  727  kubectl delete pods --all
+  728  cd ..
+  729  mkdir lab22
+  730  cd lab22
+  731  wget -O nginx-pod.yaml https://alta3.com/static/courses/k8s/nginx-pod.yaml
+  732  ll
+  733  kubectl apply -f nginx-pod.yaml 
+  734  kubectl exec -it nginx -- sh
+  735  kubectl cp nginx:etc/nginx/nginx.conf nginx.conf.old
+  736  less nginx.conf.old 
+  737  ll *.old
+  738  vim nginx.conf
+  739  kubectl cp nginx.conf nginx:/etc/nginx/nginx.conf
+  740  kubectl exec -it nginx -- mkdir /var/www
+  741  vim index.html
+  742  kubectl cp ~/index.html nginx:/var/www/index.html
+  743  kubectl cp index.html nginx:/var/www/index.html
+  744  kubectl exec -it nginx -- nginx -s reload
+  745  curl -v http://127.0.0.1:9090
+  746  ll
+  747  vi nginx.conf
+  748  kubectl cp nginx.conf nginx:/etc/nginx/nginx.conf
+  749  kubectl exec -it nginx -- mkdir /var/www/static
+  750  kubectl exec -it nginx -- nginx -s reload
+  751  curl -v 127.0.0.1:9090/static
+  752  ll
+  753  kubectl cp nginx.conf nginx:/var/www/static/nginx.txt
+  754  curl -v 127.0.0.1:9090/static
+  755  kubectl exec -it nginx -- nginx -s reload
+  756  curl -v 127.0.0.1:9090/static
+  757  cd ..
+  758  mkdir lab23
+  759  cd lab23
+  760  kubectl create configmap nginx-conf --from-file=nginx.conf
+  761  cp ../lab22/nginx.conf .
+  762  kubectl create configmap nginx-conf --from-file=nginx.conf
+  763  kubectl get configmap
+  764  cp ../lab22/index.html .
+  765  kubectl create configmap index-file --from-file=index.html
+  766  kubectl get configmap
+  767  cp nginx.conf nginx.txt
+  768  kubectl create configmap nginx-txt --from-file=nginx.txt
+  769  cp nginx.conf nginx.txt
+  770  kubectl get configmap
+  771  vim nginx-configured.yaml
+  772  kubectl delete pod nginx
+  773  kubectl create -f nginx-configured.yaml
+  774  curl -v http://127.0.0.1:9090
+  775  vim new_file.txt
+  776  kubectl create configmap new-file-cm --from-file=new_file.txt
+  777  ll
+  778  vi nginx.conf 
+  779  kubectl delete cm nginx-conf
+  780  kubectl create configmap nginx-conf --from-file=nginx.conf
+  781  ll
+  782  vi nginx-configured.yaml 
+  783  vi nginx-kk.yaml
+  784  kubectl create -f nginx-kk.yaml 
+  785  kubectl delete pod nginx-configured
+  786  kubectl create -f nginx-kk.yaml 
+  787  cd ../k8s-certs/
+  788  ll
+  789  openssl genrsa -out webby.com.key 2048
+  790  ll
+  791  openssl req -new -key webby.com.key -out webby.com.key.csr
+  792  openssl x509 -req -in webby.com.key.csr -CA ~/k8s-certs/ca.pem -CAkey ~/k8s-certs/ca-key.pem -CAcreateserial -out webby.com.crt -days 1825 -sha256
+  793  kubectl create secret generic webby-keys --from-file=/home/student/k8s-certs/webby.com.crt --from-file=/home/student/k8s-certs/webby.com.key
+  794  kubectl get secrets webby-keys -o yaml
+  795  cd -
+  796  vim nginx-locked-n-loaded.yaml
+  797  kubectl apply -f nginx-locked-n-loaded.yaml
+  798  kubectl delete pod nginx-configured
+  799  ll
+  800  less nginx-locked-n-loaded.yaml 
+  801  cp nginx.conf new-nginx.conf
+  802  vi new-nginx.conf 
+  803  kubectl create cm new-nginx --from-file=new-nginx.conf
+  804  cp nginx-locked-n-loaded.yaml nginx-locked-n-loaded-02.yaml
+  805  vi  nginx-locked-n-loaded-02.yaml
+  806  kubectl apply -f nginx-locked-n-loaded-02.yaml
+  807  kubectl get pods
+  808  kubectl delete pods --all
+  809  kubectl apply -f nginx-locked-n-loaded-02.yaml
+  810  curl -v https://localhost:9090
+  811  kubectl get secrets webby-keys -o yaml
+  812  vim nginx.conf 
+  813  vim nginx-locked-n-loaded-02.yaml 
+  814  vim nginx.conf
+  815  vim new-nginx.conf 
+  816  curl https://localhost:9090
+  817  curl http://localhost:9090
+  818  curl --insecure https://localhost:9090
+  819  wget https://localhost:9090
+  820  vim new-nginx.conf 
+  821  kubectl delete cm nginx-conf
+  822  kubectl create cm nginx-conf --from-file=new-nginx.conf
+  823  kubectl get pods
+  824  kubectl exec nginx-locked-n-loaded -it -- nginx -s reload
+  825  kubectl exec nginx-locked-n-loaded-secrets -it -- nginx -s reload
+  826  curl --insecure https://localhost:9090
+  827  curl https://localhost:9090
+  828  cd ../
+  829  mkdir lab23
+  830  mkdir lab24
+  831  cd lab24
+  832  kubectl get pods
+  833  kubectl delete pod nginx-locked-n-loaded-secrets
+  834  vi nginx-configured.yaml
+  835  kubectl get cm
+  836  kubectl create -f nginx-configured.yaml
+  837  kubectl get services
+  838  kubectl expose pod/nginx-configured --type="NodePort" --port 80
+  839  kubectl get services
+  840  kubectl describe services/nginx-configured
+  841  export NODE_PORT=$(kubectl get services/nginx-configured -o go-template='{{(index .spec.ports 0).nodePort}}')
+  842  kubectl describe pod nginx-configured | grep "Node:\|IP:"
+  843  echo Your NODE_PORT = $NODE_PORT
+  844  curl k8s-000-node-01:$NODE_PORT/static/nginx.txt
+  845  curl k8s-658-node-01:$NODE_PORT/static/nginx.txt
+  846  curl k8s-658-node-02:$NODE_PORT/static/nginx.txt
+  847  curl k8s-658-node-03:$NODE_PORT/static/nginx.txt
+  848  kubectl describe services/nginx-configured
+  849  kubectl describe nginx-configured
+  850  kubectl describe pod nginx-configured
+  851  ll
+  852  less nginx-configured.yaml 
+  853  vim nginx-configured.yaml 
+  854  kubectl apply -f nginx-configured.yaml 
+  855  kubectl get pods
+  856  kubectl delete pod nginx-configured
+  857  kubectl apply -f nginx-configured.yaml 
+  858  vim nginx-configured.yaml 
+  859  kubectl delete pod -f nginx-configured.yaml 
+  860  kubectl delete -f nginx-configured.yaml 
+  861  kubectl apply -f nginx-configured.yaml 
+  862  kubectl get cm
+  863  kubectl get cm index-file -o yaml
+  864  kubectl get cm nginx-conf -o yaml
+  865  kubectl get cm nginx-txt -o yaml
+  866  kubectl delete cm nginx-conf
+  867  kubectl create cm nginx-conf --from-file=
+  868  ls
+  869  cd ../lab23/
+  870  ls
+  871  kubectl create cm nginx-conf --from-file=nginx.conf
+  872  kubectl delete cm nginx-conf
+  873  kubectl create cm nginx-conf --from-file=nginx.conf
+  874  cd ../lab24/
+  875  kubectl delete -f nginx-configured.yaml 
+  876  kubectl apply -f nginx-configured.yaml 
+  877  cd -
+  878  curl k8s-658-node-03:$NODE_PORT/static/nginx.txt
+  879  curl k8s-658-node-01:$NODE_PORT/static/nginx.txt
+  880  curl k8s-658-node-02:$NODE_PORT/static/nginx.txt
+  881  cd ..
+  882  mkdir lab25
+  883  cd lab25
+  884  vi alta3-pv.yaml
+  885  vi nginx-pvc.yaml
+  886  vi nginx-pv.yaml
+  887  kubectl apply -f alta3-pv.yaml
+  888  kubectl apply -f nginx-pvc.yaml
+  889  kubectl apply -f nginx-pv.yaml
+  890  kubectl exec -it nginx-with-pv -- sh
+  891  ssh k8s-658-node-01
+  892  ssh k8s-658-node-02
+  893  ssh k8s-658-node-03
+  894  kubectl get pvc
+  895  kubectl get pvc -w
+  896  kubectl get pv
+  897  ll
+  898  vi nginx-pvc.yaml 
+  899  vi alta3-pv.yaml 
+  900  vi nginx-pv.yaml 
+  901  kubectl apply -f nginx-pv.yaml 
+  902  vi nginx-pv.yaml 
+  903  cp nginx-pv.yaml nginx-depploy.yaml
+  904  vi nginx-depploy.yaml 
+  905  kubectl delete pods --all
+  906  kubectl apply -f nginx-depploy.yaml 
+  907  kubectl delete pods --all
+  908  vi nginx-depploy.yaml 
+  909  kubectl apply -f nginx-depploy.yaml 
+  910  vi nginx-depploy.yaml 
+  911  kubectl apply -f nginx-depploy.yaml 
+  912  vi nginx-depploy.yaml 
+  913  kubectl apply -f nginx-depploy.yaml 
+  914  vi nginx-depploy.yaml 
+  915  kubectl apply -f nginx-depploy.yaml 
+  916  vi nginx-depploy.yaml 
+  917  kubectl apply -f nginx-depploy.yaml 
+  918  vi nginx-depploy.yaml 
+  919  ssh k8s-658-node-03
+  920  ssh k8s-658-node-02
+  921  cd ../
+  922  mkdir lab26
+  923  cd lab26
+  924  wget https://alta3.com/static/files/install_ceph_for_k8s.sh
+  925  ll
+  926  chmod u+x install_ceph_for_k8s.sh
+  927  ll
+  928  ./install_ceph_for_k8s.sh
+  929  ceph osd pool create kube 100 100
+  930  ceph auth get-or-create client.kube mon 'allow r' osd 'allow class-read object_prefix rbd_children, allow rwx pool=kube' -o ceph.client.kube.keyring
+  931  ceph auth get-key client.admin | base64
+  932  vi ceph-secret.yaml
+  933  kubectl create -f ceph-secret.yaml --namespace=default
+  934  vi ceph-storageclass.yaml
+  935  nslookup k8s-658-master-01
+  936  nslookup k8s-658-master-02
+  937  nslookup k8s-658-master-03
+  938  kubectl create -f ceph-storageclass.yaml
+  939  kubectl delete pods --all
+  940  kubectl get deployment
+  941  kubectl delete deployment nginx-deployment
+  942  kubectl get storageclass
+  943  vim ceph-claim.yaml
+  944  kubectl create -f ceph-claim.yaml
+  945  kubectl get pvc
+  946  vim ceph-pod1.yaml
+  947  kubectl create -f ceph-pod1.yaml
+  948  kubectl get pods
+  949  kubectl describe pod ceph-pod1
+  950  kubectl describe pods ceph-pod1
+  951  kubectl get pvc
+  952  kubectl describe pvc ceph-claim
+  953  vim ceph-storageclass.yaml 
+  954  kubectl get secrets
+  955  kubectl get sc
+  956  kubectl get pvc
+  957  kubectl describe pvc ceph-claim
+  958  vim ceph-storageclass.yaml 
+  959  ls
+  960  mv install_ceph_for_k8s.sh ~/install_ceph_for_k8s.sh
+  961  cd
+  962  kubectl delete -f lab26/
+  963  cd -
+  964  kubectl apply -f ceph-secret.yaml 
+  965  kubectl apply -f ceph-storageclass.yaml 
+  966  kubectl apply -f ceph-claim.yaml 
+  967  kubectl apply -f ceph-pod1.yaml 
+  968  kubectl get pods
+  969  kubectl get pvc
+  970  vim ceph-claim.yaml 
+  971  kubectl get pvc
+  972  kubectl get pvc ceph-claim.yaml 
+  973  kubectl get pvc ceph-claim
+  974  # Not sure
+  975  ceph status
+  976  ceph osd pool status
+  977  ceph osd pool status kube
+  978  kubctl describe pvc
+  979  kubctl get pvc 
+  980  kubectl get pvc 
+  981  kubectl describe pvc ceph-claim
+  982  cd ..
+  983  kubectl delete -f lab26/
+  984  cd lab26
+  985  ll
+  986  vi ceph-secret.yaml 
+  987  vi ceph-storageclass.yaml 
+  988  kubectl apply -f ceph-secret.yaml --namespace=default
+  989  kubectl apply -f ceph-storageclass.yaml
+  990  kubectl get storageclass
+  991  kubectl create -f ceph-claim.yaml
+  992  kubectl get pvc
+  993  kubectl create -f ceph-pod1.yaml
+  994  kubectl get pod
+  995  kubectl exec -it ceph-pod1 sh
+  996  kubectl delete -f ceph-pod1.yaml
+  997  kubectl create -f ceph-pod1.yaml
+  998  kubectl describe pod ceph-pod1
+  999  kubectl exec -it ceph-pod1 sh
+ 1000  kubectl exec -it ceph-pod1 -- sh
+ 1001  ll
+ 1002  less ceph-pod1.yaml 
+ 1003  history >> history4.txt

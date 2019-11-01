@@ -1,0 +1,20 @@
+apiVersion: v1
+data:
+  nginx.conf: "user  nginx;\nworker_processes  1;\nerror_log  /var/log/nginx/error.log
+    warn;\npid        /var/run/nginx.pid;\nevents {\n    worker_connections  1024;\n}\nhttp
+    {\n    include       /etc/nginx/mime.types;\n    default_type  application/octet-stream;\n
+    \   log_format  main  '$remote_addr - $remote_user [$time_local] \"$request\"
+    '\n                      '$status $body_bytes_sent \"$http_referer\" '\n                      '\"$http_user_agent\"
+    \"$http_x_forwarded_for\"';\n    access_log  /var/log/nginx/access.log  main;\n
+    \   sendfile        on;\n    keepalive_timeout  65;\n    server {\n        server_name
+    \ localhost;\n        listen 80;\n        root /var/www;\n\n        location /
+    {\n        proxy_pass http://127.0.0.1:8888/;  \n        }\n\n        location
+    /static {\n        autoindex on;\n        }\n\n    }\n}     "
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2019-11-01T16:52:59Z"
+  name: nginx-conf
+  namespace: default
+  resourceVersion: "554530"
+  selfLink: /api/v1/namespaces/default/configmaps/nginx-conf
+  uid: b7ec5dfc-bc0b-4ba5-a884-41be8dce4128
